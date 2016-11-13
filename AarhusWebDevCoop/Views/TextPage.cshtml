@@ -1,0 +1,20 @@
+﻿@inherits UmbracoTemplatePage<ContentModels.TextPage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+
+
+<div id="container">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            @CurrentPage.GetGridHtml("Grid")
+        </div>
+
+    </div>
+
+
+</div>

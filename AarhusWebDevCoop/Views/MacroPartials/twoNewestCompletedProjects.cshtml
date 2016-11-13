@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+
+@{ var projects = Umbraco.Content(1136); }
+@* OrderBy() takes the property to sort by and optionally order desc/asc *@
+
+
+<div class="row">
+    
+    @foreach (var project in projects.Children.OrderBy("CreateDate descending").Where("Status.Contains(\"Completed\")").Take(2))
+    {
+            <div class="col-xs-12 col-md-6">
+
+                <img class="img-responsive max-size" src="@Umbraco.Media(project.image).Url"/>
+
+                <h4>@project.projectTitle</h4>
+                
+                <p>@Umbraco.Truncate(project.projectContent, 200)</p>
+
+                <a href="@project.Url">Read More</a>
+            </div>
+    }
+</div>

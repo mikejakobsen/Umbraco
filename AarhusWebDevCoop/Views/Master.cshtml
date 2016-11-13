@@ -1,0 +1,45 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Umbraco.Field("title", "pageName")</title>
+    <link rel="stylesheet" href="~/Content/bootswatch.min.css">
+    <link rel="stylesheet" href="~/css/style.min.css">
+</head>
+
+<body>
+<header>
+        @Umbraco.RenderMacro("mainMenu")
+</header>
+
+<div class="container">
+    @RenderBody()
+</div>
+
+<footer>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>@Umbraco.Field("footerText", recursive: true)</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="~/scripts/jquery-3.1.0.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="@Url.Content("~/scripts/validation.js")"></script>
+<script src="@Url.Content("~/scripts/footer.js")"></script>
+<script src="@Url.Content("~/scripts/navbar.js")"></script>
+</body>
+</html>

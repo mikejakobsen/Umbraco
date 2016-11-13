@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+
+
+@{
+    var messages = CurrentPage.Children.Where("Visible").OrderBy("CreateDate desc");
+    var umbracoHelper = new UmbracoHelper(Umbraco.UmbracoContext);
+}
+@* OrderBy() takes the property to sort by and optionally order desc/asc *@
+
+
+
+@foreach (var message in messages)
+{
+    <div class="col-xs-12">
+
+
+        <div class="panel panel">
+
+
+            <div class="panel-heading">
+
+
+                <p>@message.msgbName</p>
+
+
+            </div>
+
+
+            <div class="panel-body">
+
+
+                <p>@message.msgbMessage</p>
+                @if (umbracoHelper.MemberIsLoggedOn())
+                {
+                    <form class="form-group form-horizontal">
+                        @using (Html.BeginForm("DeleteMessage", "MessageBoardSurFace", new {contentId = message.Id, redirectId = CurrentPage.Id}, FormMethod.Post, new {@class = "form-inline"}))
+                        {
+                            <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                        }
+                    </form>
+                }
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+}

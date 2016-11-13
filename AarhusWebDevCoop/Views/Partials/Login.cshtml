@@ -1,0 +1,42 @@
+﻿@using ClientDependency.Core.Mvc
+@using Umbraco.Web.Controllers
+@using Umbraco.Web.Models
+@inherits UmbracoTemplatePage
+
+@{
+    var loginModel = new LoginModel();
+
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@Html.RenderJsHere()
+
+@if (!Members.GetCurrentLoginStatus().IsLoggedIn)
+{
+    using (Html.BeginUmbracoForm<UmbLoginController>("HandleLogin", null, new {@class = "form-group"}))
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-box">
+                    <h2 class="form-box-heading">Login</h2>
+                    @Html.ValidationSummary("loginModel", true)
+                    @Html.LabelFor(m => loginModel.Username)
+                    @Html.TextBoxFor(m => loginModel.Username, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => loginModel.Username)
+                    @Html.LabelFor(m => loginModel.Password)
+                    @Html.PasswordFor(m => loginModel.Password, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => loginModel.Password)
+                    <button type="submit" class="btn btn-lg btn-success">Login</button>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>
+        Welcome back <mark>@Members.GetCurrentLoginStatus().Name</mark>
+    </p>
+    <p>@Members.GetCurrentLoginStatus().Email</p>
+}
